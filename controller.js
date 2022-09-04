@@ -18,11 +18,11 @@ async function newPop(){
     generationTitle.textContent = myPop1.generation
     myPop1.updateAll()
     for(var i = 0; i < POPULATION; i++){
-      //var ctx = canvases[i].getContext("2d")
-      //myPop1.agents[i].brain.drawMe(ctx)
+      var ctx = canvases[i].getContext("2d")
+      myPop1.agents[i].brain.drawMe(ctx)
     }
     myPop1.nextGeneration()
-    await timer(1)
+    await timer(100)
   }
 
   async function loop(){
