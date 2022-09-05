@@ -64,7 +64,7 @@ class Species{
     }
 
 
-    var d = (Species.excessCoefficient * excessDisjoint/normalizationConstant) + (Species.weightCoefficient * avgWeight)
+    var d = ((Species.excessCoefficient * excessDisjoint)/normalizationConstant) + (Species.weightCoefficient * avgWeight)
     return d
   }
 
@@ -148,11 +148,8 @@ class Species{
   fitnessSharing(){
     for (var i = 0; i < this.players.length; i++) {
       var agent = this.players[i]
-      var agentFitness = agent.getFitness()
-      var adjustedFitness = agentFitness/(this.players.length-1) // ∑nj=1 sh(δ(i, j)) reduces to the number of organisms in the same species as organism i
-      if(!isFinite(adjustedFitness)){
-        adjustedFitness = agentFitness
-      }
+      var agentFitness = agent.unAdjustedFitness
+      var adjustedFitness = agentFitness/(this.players.length) // ∑nj=1 sh(δ(i, j)) reduces to the number of organisms in the same species as organism i
       agent.setFitnessAdjusted(adjustedFitness)
     }
   }
