@@ -101,43 +101,44 @@ class Population {
   }
 
   speciate() {
+    //for each species, clear all the players in it,
     for (var i = 0; i < this.species.length; i++) {
       this.species[i].clearPlayers()
     }
 
+    //create a species array sorted by the time they were created (lowest ids first)
     var speciesInOrder = this.species.sort(function(a, b) {
-      return b["id"] - a["id"];
+      return a["id"] - b["id"];
     })
 
-    /*
+    //create a helper players array, the same as this.agents
     var notAddedToSpecies = []
     for (var i = 0; i < this.agents.length; i++) {
-      notAddedToSpecies.push(agents[i])
+      notAddedToSpecies.push(this.agents[i])
     }
-    */
 
-
-    for (var i = 0; i < this.agents.length; i++) {
-      var agent = this.agents[i]
-      var addedToSpecies = false
-      var loops = this.species.length
-      for (var j = 0; j < loops; j++) {
-        var specie = speciesInOrder[j]
+    //put all of the players into species, if a specie doesnt exist for them then make a new one which they will represent
+    for (var i = 0; i < speciesInOrder.length; i++) {
+      var specie = speciesInOrder[i]
+      for (var j = 0; j < notAddedToSpecies.length; j++) {
+        var agent = notAddedToSpecies[j]
         if (specie.sameSpecies(agent.brain)) {
           specie.addPlayer(agent)
           agent.setSpecies(specie)
-          addedToSpecies = true
-          break
+          notAddedToSpecies[j] = undefined
         }
       }
-      if (!addedToSpecies) {
-        var newSpecie = new Species(agent,this.nextSpecieId)
+      notAddedToSpecies = notAddedToSpecies.filter(agent => agent !== undefined); // remove all agents who have a species
+
+      if(i === (this.species.length-1) && notAddedToSpecies.length > 0){ //no more species, but players are still left, so make new species
+        var newSpecie = new Species(notAddedToSpecies[0],this.nextSpecieId)
+        notAddedToSpecies.shift()
         this.nextSpecieId++
         this.species.push(newSpecie)
         agent.setSpecies(newSpecie)
       }
-    //  if(agent.unAdjustedFitness >= 100) console.log('holy', agent.species.id)
     }
+
     for (var i = 0; i < this.species.length; i++) {
       this.species[i].setNewRandomRepresentative()
     }
