@@ -86,7 +86,7 @@ class NeuralNet {
         maxConnections += this.getLayerLen(j)
       }
     }
-    return maxConnections == this.synapses.length
+    return maxConnections === this.synapses.length
   }
 
   //adds a synapse connecting 2 nodes which are not connected
@@ -152,7 +152,10 @@ class NeuralNet {
 
 
   mutate() {
-    if(this.synapses.length === 0) this.addRandomSynapse()
+    if(this.synapses.length === 0){
+      this.addRandomSynapse()
+      return
+    }
     if(Math.random() < 0.8) { //80% of the time mutate weights and biases
       //weights
       for (var i = 0; i < this.synapses.length; i++) {
@@ -366,6 +369,10 @@ class NeuralNet {
       } else if(brain1Synapse !== undefined ^ brain2Synapse !== undefined) { // genes dont match (excess / disjoint)
         babyBrain.addSynapse(babyBrain.getNeuronByOrder(brain1Synapse.from.order), babyBrain.getNeuronByOrder(brain1Synapse.to.order), brain1Synapse.weight, newSynapseDisabled)
       }
+    }
+    if(babyBrain.synapses.length === 0){
+      console.log(this,brain2)
+      debugger
     }
     babyBrain.speciesId = this.speciesId
     return babyBrain

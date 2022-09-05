@@ -13,7 +13,9 @@ class Agent{
   setSpecies(s){
     this.species = s
     this.brain.setSpeciesId(s.id)
-    if(this.brain.synapses[0] === undefined || s.representativeBrain.synapses[0] === undefined) return
+    if(this.brain.synapses[0] === undefined || s.representativeBrain.synapses[0] === undefined){
+      console.log(this)
+    }
     if(this.brain.synapses[0].weight == s.representativeBrain.synapses[0].weight){
       this.brain.rep = true
     } else {
@@ -86,8 +88,9 @@ class Agent{
   }
 
   crossover(parent){
-    var child = new Agent(this.population,this.species)
+    var child = new Agent(this.population)
     child.setBrain(this.brain.crossover(parent.brain))
+    child.setSpecies(this.species)
     return child
   }
 

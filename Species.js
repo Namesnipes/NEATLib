@@ -17,7 +17,9 @@ class Species{
       var synapse1 = brain1.genome[i]
       var synapse2 = brain2.genome[i]
       if((synapse1 === undefined) != (synapse2 === undefined)){
-        count++
+        if((synapse1 === undefined || !synapse1.disabled) && (synapse2 === undefined || !synapse2.disabled)){ // only enabled connections are counted
+          count++
+        }
       }
     }
 

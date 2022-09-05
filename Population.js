@@ -33,58 +33,58 @@ class Population {
   }
 
   nextGeneration() {
-    for (var i = 0; i < this.agents.length; i++) {
-      if(this.agents[i].unAdjustedFitness > 15) {
-        Population.genSolvedSum += this.generation
-        Population.nodesInSolutionSum += this.agents[i].brain.neurons.length-3
-        console.log("Avg gens:", Population.genSolvedSum/Population.numPops, "for", Population.numPops, "populations")
-        console.log("Avg nodes:", Population.nodesInSolutionSum/Population.numPops, "for", Population.numPops, "populations")
-        console.log("----------")
-        for(var j = 0; j < POPULATION; j++){
-          //var ctx = canvases[j].getContext("2d")
-          //this.agents[i].brain.drawMe(ctx)
-        }
-        //debugger
-        newPop()
-        return
-      }
-    }
+   for (var i = 0; i < this.agents.length; i++) {
+     if(this.agents[i].unAdjustedFitness > 15) {
+       Population.genSolvedSum += this.generation
+       Population.nodesInSolutionSum += this.agents[i].brain.neurons.length-3
+       console.log("Avg gens:", Population.genSolvedSum/Population.numPops, "for", Population.numPops, "populations")
+       console.log("Avg nodes:", Population.nodesInSolutionSum/Population.numPops, "for", Population.numPops, "populations")
+       console.log("----------")
+       for(var j = 0; j < POPULATION; j++){
+         //var ctx = canvases[j].getContext("2d")
+         //this.agents[i].brain.drawMe(ctx)
+       }
+       //debugger
+       newPop()
+       return
+     }
+   }
 
-    this.calculateFitnesses()
-    this.speciate()
-    this.sortSpecies()
-    this.cullSpecies()
-    this.killStaleSpecies()
-    this.killInfertileSpecies()
-    //get sum of species average fitnesses
-    var averageSum = 0
-    for (var i = 0; i < this.species.length; i++) {
-      averageSum += this.species[i].averageFitness
-    }
+   this.calculateFitnesses()
+   this.speciate()
+   this.sortSpecies()
+   this.cullSpecies()
+   this.killStaleSpecies()
+   this.killInfertileSpecies()
+   //get sum of species average fitnesses
+   var averageSum = 0
+   for (var i = 0; i < this.species.length; i++) {
+     averageSum += this.species[i].averageFitness
+   }
 
-    //get children
-    var children = []
-    for (var i = 0; i < this.species.length; i++) {
-      var specie = this.species[i]
-      children.push(specie.players[0]) //add best player without mutation
-      var numChildren = Math.floor((specie.averageFitness/averageSum) * this.agents.length ) -1;
-      for (var j = 0; j < numChildren; j++) {
-        children.push(specie.SEXSEXSEXSEXSEX())
-      }
-    }
+   //get children
+   var children = []
+   for (var i = 0; i < this.species.length; i++) {
+     var specie = this.species[i]
+     children.push(specie.players[0]) //add best player without mutation
+     var numChildren = Math.floor((specie.averageFitness/averageSum) * this.agents.length ) -1;
+     for (var j = 0; j < numChildren; j++) {
+       children.push(specie.SEXSEXSEXSEXSEX())
+     }
+   }
 
-    //get best species
-    var bestSpecie = this.species[0]
+   //get best species
+   var bestSpecie = this.species[0]
 
-    //get children from best species until population cap is hit
-    while(children.length < this.popSize){
-      children.push(bestSpecie.SEXSEXSEXSEXSEX())
-    }
+   //get children from best species until population cap is hit
+   while(children.length < this.popSize){
+     children.push(bestSpecie.SEXSEXSEXSEXSEX())
+   }
 
-    this.agents = children
+   this.agents = children
 
-    this.generation++
-  }
+   this.generation++
+ }
 
   mutate() {
     for (var i = 0; i < this.popSize; i++) {
