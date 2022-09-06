@@ -138,7 +138,7 @@ class Species{
   cull(){
     if (this.players.length > 2) {
     //console.log("killing:", Math.floor(this.players.length/2))
-      var loops = Math.floor(this.players.length/2)
+      var loops = Math.floor(this.players.length * 0.5)
       for (i = 0; i<loops; i++) {
         this.players.pop()
       }

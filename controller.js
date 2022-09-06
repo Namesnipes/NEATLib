@@ -1,6 +1,6 @@
 var POPULATION = 150;
 var GEN_TIME = 1; // in miliseconds
-var DRAW_NETS = false
+var DRAW_NETS = true
 
 
 
@@ -24,10 +24,18 @@ async function newPop(){
     generationTitle.textContent = myPop1.generation
     myPop1.updateAll()
     if(DRAW_NETS){
+      var best = myPop1.agents.sort(function(a, b) {
+        return b["unAdjustedFitness"] - a["unAdjustedFitness"];
+      })
+
+      var ctx = canvases[0].getContext("2d")
+      best[0].brain.drawMe(ctx)
+      /*
       for(var i = 0; i < POPULATION; i++){
         var ctx = canvases[i].getContext("2d")
         myPop1.agents[i].brain.drawMe(ctx)
       }
+      */
     }
     myPop1.nextGeneration()
     await timer(GEN_TIME)

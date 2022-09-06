@@ -69,6 +69,7 @@ class Agent{
     var out4 = this.getBrainOutputs()[0]
     dist += Math.abs(1 - out4)
     solved = solved && (out4 > 0.5)
+
     var fit = (4-dist)**2
     if(solved) fit = 100
     return fit
