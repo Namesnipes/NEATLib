@@ -74,6 +74,7 @@ class Species{
     this.staleness = 0;
     this.id = number
     this.averageFitness = 0;
+    this.oldBest = 0;
 
     this.representativeBrain = player.brain.clone()
 
@@ -100,14 +101,16 @@ class Species{
   sortPlayers(){
     if(this.players.length <= 0) return
 
-    var oldBest = this.players[0].unAdjustedFitness
     this.players = this.players.sort(function(a, b) {
       return b["unAdjustedFitness"] - a["unAdjustedFitness"];
     })
 
-    if(oldBest >= this.players[0].unAdjustedFitness){
+    if(this.oldBest >= this.players[0].unAdjustedFitness){
       this.staleness++
+    } else {
+      this.staleness = 0
     }
+    this.oldBest = this.players[0].unAdjustedFitness
   }
 
   setNewBestRepresentative(){
@@ -116,6 +119,7 @@ class Species{
       return b["unAdjustedFitness"] - a["unAdjustedFitness"];
     })
     this.representativeBrain = sorted[0].brain
+    sorted[0].brain.setSpeciesId(this.id)
   }
 
   setNewRandomRepresentative(){

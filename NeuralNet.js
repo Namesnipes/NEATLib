@@ -164,7 +164,7 @@ class NeuralNet {
           this.synapses[i].weight += change
         } else {
           var newWeight = randInRange(-1, 1)
-          this.synapses[i].weight += newWeight
+          this.synapses[i].weight = newWeight
         }
       }
       //mutate biases
@@ -404,7 +404,8 @@ class NeuralNet {
     }
     for (var i = 0; i < this.synapses.length; i++) {
       var s = this.synapses[i]
-      newNeuralnet.addSynapse(newNeuralnet.getNeuronByOrder(s.from.order),newNeuralnet.getNeuronByOrder(s.to.order))
+      var newS = newNeuralnet.addSynapse(newNeuralnet.getNeuronByOrder(s.from.order),newNeuralnet.getNeuronByOrder(s.to.order))
+      newS.disabled = s.disabled
     }
     return newNeuralnet
   }

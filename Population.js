@@ -140,7 +140,7 @@ class Population {
     }
 
     for (var i = 0; i < this.species.length; i++) {
-      this.species[i].setNewRandomRepresentative()
+      this.species[i].setNewBestRepresentative()
     }
 
   }
