@@ -178,12 +178,12 @@ class NeuralNet {
         }
       }
     }
-    if(Math.random() < 0.05) { //8% of the time mutate by adding a synapse
+    if(Math.random() < 0.07) { //8% of the time mutate by adding a synapse
 
       this.addRandomSynapse()
     }
 
-    if(Math.random() < 0.03){// 2% of the time mutate by adding a neuron
+    if(Math.random() < 0.01){// 2% of the time mutate by adding a neuron
       this.addRandomNeuron()
     }
 

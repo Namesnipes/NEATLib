@@ -54,7 +54,7 @@ async function newPop(){
         var ctx = repCanvas[i].getContext("2d")
         myPop1.species[i].representativeBrain.drawMe(ctx)
       }
-      console.log(myPop1.species)
+      //console.log(myPop1.species)
 
     }
 
